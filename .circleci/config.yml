@@ -13,10 +13,28 @@ jobs:
       - run:
           name: Deploy Backend
           command: |
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@51.21.128.145 \
-              "cd /var/www/html/portfolio && \
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@16.171.236.173 \
+              "cd /var/www/html/reactproject && \
               sudo git pull origin main && \
               pwd"
+
+restart_pm2:
+    docker:
+      - image: circleci/node:latest
+
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:GcXu16ZZ8yRouRXkOnRJwlamyW0K9F6sD4Znmw7Piwk"
+      - run:
+          name: Restart PM2 Process
+          command: |
+            set -e
+            {
+              ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@16.171.236.173  \
+              "cd /var/www/html/reactproject && \
+              pm2 restart 0"
+
 
 workflows:
   version: 2
@@ -27,3 +45,7 @@ workflows:
             branches:
               only:
                 - main
+
+                - restart_pm2:
+          requires:
+            - deploy_backend
