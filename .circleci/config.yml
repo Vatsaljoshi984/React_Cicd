@@ -1,0 +1,29 @@
+version: 2.1
+
+jobs:
+  deploy_backend:
+    docker:
+      - image: circleci/node:latest
+    resource_class: medium
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:GcXu16ZZ8yRouRXkOnRJwlamyW0K9F6sD4Znmw7Piwk"
+      - checkout
+      - run:
+          name: Deploy Backend
+          command: |
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@51.21.128.145 \
+              "cd /var/www/html/portfolio && \
+              sudo git pull origin main && \
+              pwd"
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - deploy_backend:
+          filters:
+            branches:
+              only:
+                - main
