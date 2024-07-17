@@ -50,7 +50,7 @@ export default function BetterNavbar() {
               >
                 <HStack>
                   <FaHome /> {/* Use the FaHome icon */}
-                  <Text fontWeight="bold">Home</Text>
+                  <Text fontWeight="bold">vatsal</Text>
                 </HStack>
               </ReachLink>
               <ReachLink
@@ -62,7 +62,7 @@ export default function BetterNavbar() {
               >
                 <HStack>
                   <InfoIcon />
-                  <Text fontWeight="bold">About</Text>
+                  <Text fontWeight="bold">devops</Text>
                 </HStack>
               </ReachLink>
             </HStack>
