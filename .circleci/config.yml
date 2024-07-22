@@ -18,9 +18,23 @@ jobs:
             sudo git pull origin main && \
             pwd"
 
-  restart_pm2:
-    docker:
+      build_docker_image:
+      docker:
       - image: circleci/node:latest
+
+      steps:
+        - Checkout
+        - setup_remote_docker:
+           docker_layer_caching: false
+        - run:
+          name: Build Docker image
+          command:
+            docker build -t reactdemoapp -t vatsal929/reactdemoapp:01 .
+            echo $DOCKER_PASSWORD | docker login -u vatsal929 --password-VATsal@123
+            docker push vatsal929/reactdemoapp:01 
+
+  restart_pm2:
+
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -35,12 +49,15 @@ jobs:
 workflows:
   version: 2
   build_and_deploy:
+  build_test:
     jobs:
       - deploy_backend:
           filters:
             branches:
               only:
                 - main
+                -run_tests
+                -build_docker_image
       - restart_pm2:
           requires:
             - deploy_backend
