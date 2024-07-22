@@ -8,7 +8,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "SHA256:GcXu16ZZ8yRouRXkOnRJwlamyW0K9F6sD4Znmw7Piwk"
+            - "SHA256:dTbd7DeoUsp6E6cpOm1sufbJLEs3Hnglp4PTX+/2vBc"
       - checkout
       - run:
           name: Deploy Backend
@@ -38,7 +38,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "SHA256:GcXu16ZZ8yRouRXkOnRJwlamyW0K9F6sD4Znmw7Piwk"
+            - "SHA256:dTbd7DeoUsp6E6cpOm1sufbJLEs3Hnglp4PTX+/2vBc"
       - run:
           name: Restart PM2 Process
           command: |
