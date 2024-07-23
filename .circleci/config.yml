@@ -14,7 +14,7 @@ jobs:
           name: Deploy Backend
           command: |
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@3.110.210.95  \
-            "cd /var/www/html/reactproject && \
+            "cd /var/www/html/React_Cicd  && \
             sudo git pull origin main && \
             pwd"
 
@@ -43,7 +43,7 @@ jobs:
           name: Restart PM2 Process
           command: |
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@3.110.210.95    \
-            "cd /var/www/html/reactproject && \
+            "cd /var/www/html/React_Cicd  && \
             pm2 restart 0"
 
 workflows:
