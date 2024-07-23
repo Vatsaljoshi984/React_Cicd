@@ -48,7 +48,7 @@ const Form = (props) => {
                         }
                     </select>
                 </div>
-                <button type="submit" className="btn btn-primary">Start Quiz</button>
+                <button type="submit" className="btn btn-primary">lets Start Quiz</button>
             </form>
         </>
     )
