@@ -17,6 +17,7 @@ jobs:
             "cd /var/www/html/React_Cicd  && \
             sudo git pull origin main && \
             pwd"
+            
 
   build_docker_image:
     docker:
