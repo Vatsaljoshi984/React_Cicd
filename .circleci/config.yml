@@ -13,11 +13,11 @@ jobs:
       - run:
           name: Deploy Backend
           command: |
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@3.110.210.95  \
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@3.108.62.21  \
             "cd /var/www/html/React_Cicd  && \
+            git reset --hard HEAD && \
             sudo git pull origin main && \
             pwd"
-            
 
   build_docker_image:
     docker:
@@ -30,7 +30,7 @@ jobs:
           name: Build Docker image
           command: |
             docker build -t reactdemoapp -t vatsal929/reactdemoapp:01 .
-            echo $DOCKER_PASSWORD | docker login -u vatsal929 --password-VATsal@123
+            echo $DOCKER_PASSWORD | docker login -u vatsal929 --password-stdin
             docker push vatsal929/reactdemoapp:01
 
   restart_pm2:
@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Restart PM2 Process
           command: |
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@3.110.210.95    \
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@3.108.62.21    \
             "cd /var/www/html/React_Cicd  && \
             pm2 restart 0"
 
@@ -61,4 +61,4 @@ workflows:
             - deploy_backend
       - restart_pm2:
           requires:
-            - deploy_backend
+            - build_docker_image
