@@ -32,7 +32,7 @@ jobs:
             git reset --hard HEAD && \
             sudo git pull origin main && \
             pwd"
-
+ 
   build_docker_image:
     docker:
       - image: circleci/node:latest
