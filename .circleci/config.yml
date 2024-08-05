@@ -1,5 +1,5 @@
 version: 2.1
- 
+
 jobs:
   deploy_backend:
     docker:
@@ -14,10 +14,13 @@ jobs:
           name: Deploy Backend
           command: |
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@13.232.57.227  \
-            "cd /var/www/html/React_Cicd  && \
+            "cd /var/www/html/React_Cicd && \
             git reset --hard HEAD && \
             sudo git pull origin main && \
-            pwd"
+            pwd && \
+            ls -la ~/.ssh && \
+            echo 'SSH Key status:' && \
+            ssh -T git@github.com"
 
   build_docker_image:
     docker:
@@ -44,7 +47,8 @@ jobs:
           name: Restart PM2 Process
           command: |
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@13.232.57.227    \
-            "cd /var/www/html/React_Cicd  && \
+            "cd /var/www/html/React_Cicd && \
+            pm2 list && \
             pm2 restart 0"
 
 workflows:
