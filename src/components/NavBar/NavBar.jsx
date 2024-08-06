@@ -93,7 +93,7 @@ export default function BetterNavbar() {
               >
                 <HStack>
                   <InfoIcon />
-                  <Text fontWeight="bold">Vatsal</Text>
+                  <Text fontWeight="bold">keshav</Text>
                 </HStack>
               </ReachLink>
             </Stack>
