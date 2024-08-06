@@ -34,11 +34,11 @@ jobs:
       - run:
           name: Copy Build to EC2 Server
           command: |
-            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa -r /tmp/workspace/build/* ubuntu@65.2.130.131:/var/www/html/React_Cicd/build
+            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa -r /tmp/workspace/build/* ubuntu@65.2.182.196:/var/www/html/React_Cicd/build
       - run:
           name: Reload Apache
           command: |
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@65.2.130.131 '
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@65.2.182.196 '
               sudo systemctl reload apache2 &&
               sudo chown -R ubuntu:ubuntu /var/www/html/React_Cicd'
 
