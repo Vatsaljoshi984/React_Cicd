@@ -37,7 +37,7 @@ const Home = () => {
                 (url === '' || questions.length === 0)
                     ?
                     <div className="container my-3">
-                        <Text mb={'4'} fontSize='4xl'>Start your Quiz Now</Text>
+                        <Text mb={'4'} fontSize='4xl'>Chaliye shuru karte he </Text>
                         <hr />
                         <Form handleSubmit={handleSubmit} onChange={onChange} />
                     </div>
