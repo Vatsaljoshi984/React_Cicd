@@ -12,10 +12,6 @@ jobs:
       - run:
           name: Run Build
           command: npm run build
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
 
   deploy_backend:
     docker:
@@ -25,8 +21,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "SHA256:dTbd7DeoUsp6E6cpOm1sufbJLEs3Hnglp4PTX+/2vBc"
-      - attach_workspace:
-          at: /workspace
+      - checkout
       - run:
           name: SSH to Server and Pull Changes
           command: |
