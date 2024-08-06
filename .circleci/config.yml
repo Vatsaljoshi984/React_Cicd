@@ -14,8 +14,12 @@ jobs:
           name: Run Build
           command: |
             npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
-  deploy_backend:
+  deploy_frontend:
     docker:
       - image: circleci/node:latest
     resource_class: medium
@@ -23,15 +27,20 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "SHA256:dTbd7DeoUsp6E6cpOm1sufbJLEs3Hnglp4PTX+/2vBc"
-      - checkout
+      - attach_workspace:
+          at: /workspace
       - run:
           name: Deploy Backend
           command: |
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@65.2.130.131   \
-            "cd /var/www/html/React_Cicd  && \
-            git reset --hard HEAD && \
-            sudo git pull origin main && \
-            pwd"
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@65.2.130.131 << 'EOF'
+              cd /var/www/html/React_Cicd
+              sudo git reset --hard HEAD
+              sudo git pull origin main
+              sudo npm install
+              sudo npm run build
+              sudo systemctl reload apache2
+              sudo chown -R ubuntu:ubuntu .  # Ensure the correct permissions
+EOF
 
 workflows:
   version: 2
