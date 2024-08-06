@@ -28,17 +28,25 @@ jobs:
       - attach_workspace:
           at: /workspace
       - run:
-          name: Deploy Backend
+          name: SSH to Server and Pull Changes
           command: |
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@65.2.130.131 << EOF
-              cd /var/www/html/React_Cicd
-              sudo git reset --hard HEAD
-              sudo git pull origin main
-              sudo npm install
-              sudo npm run build
-              sudo systemctl reload apache2
-              sudo chown -R ubuntu:ubuntu .
-              EOF
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@65.2.130.131 '
+              cd /var/www/html/React_Cicd &&
+              sudo git reset --hard HEAD &&
+              sudo git pull origin main'
+      - run:
+          name: Install Dependencies and Build
+          command: |
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@65.2.130.131 '
+              cd /var/www/html/React_Cicd &&
+              sudo npm install &&
+              sudo npm run build'
+      - run:
+          name: Reload Apache
+          command: |
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@65.2.130.131 '
+              sudo systemctl reload apache2 &&
+              sudo chown -R ubuntu:ubuntu /var/www/html/React_Cicd'
 
 workflows:
   version: 2
