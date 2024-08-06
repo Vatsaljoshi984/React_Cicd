@@ -50,7 +50,7 @@ export default function BetterNavbar() {
               >
                 <HStack>
                   <FaHome /> {/* Use the FaHome icon */}
-                  <Text fontWeight="bold">vatsal</Text>
+                  <Text fontWeight="bold">keshav</Text>
                 </HStack>
               </ReachLink>
               <ReachLink
