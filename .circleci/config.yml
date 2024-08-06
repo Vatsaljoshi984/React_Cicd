@@ -32,34 +32,6 @@ jobs:
             git reset --hard HEAD && \
             sudo git pull origin main && \
             pwd"
- 
-  build_docker_image:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: false
-      - run:
-          name: Build Docker image
-          command: |
-            docker build -t reactdemoapp -t vatsal929/reactdemoapp:01 .
-            echo $DOCKER_PASSWORD | docker login -u vatsal929 --password-stdin
-            docker push vatsal929/reactdemoapp:01
-
-  restart_pm2:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "SHA256:dTbd7DeoUsp6E6cpOm1sufbJLEs3Hnglp4PTX+/2vBc"
-      - run:
-          name: Restart PM2 Process
-          command: |
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@43.205.119.20     \
-            "cd /var/www/html/React_Cicd  && \
-            pm2 restart 0"
 
 workflows:
   version: 2
@@ -73,9 +45,3 @@ workflows:
             branches:
               only:
                 - main
-      - build_docker_image:
-          requires:
-            - deploy_backend
-      - restart_pm2:
-          requires:
-            - build_docker_image
