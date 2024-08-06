@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Deploy Backend
           command: |
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@43.205.119.20   \
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa ubuntu@65.2.130.131   \
             "cd /var/www/html/React_Cicd  && \
             git reset --hard HEAD && \
             sudo git pull origin main && \
