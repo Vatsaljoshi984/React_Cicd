@@ -1,7 +1,7 @@
 <h1 align="center">
        ✨  Quiz Web App  ✨
 </h1>
-
+  
 <div align="center">
 
 ![Badge](https://img.shields.io/badge/Tech_Stack-HTML-orange) ![Badge](https://img.shields.io/badge/CSS-blue) ![Badge](https://img.shields.io/badge/React_Js-cyan)
